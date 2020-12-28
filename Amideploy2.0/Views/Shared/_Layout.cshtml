@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - AMI DEPLOY</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        /* Navbar container */
+        .navbarmenu {
+            /*overflow: hidden;*/
+            background-color: #333;
+            font-family: Arial;
+        }
+
+            /* Links inside the navbar */
+            .navbarmenu a {
+                float: left;
+                font-size: 16px;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+        /* The dropdown container */
+        .dropdownmenu {
+            float: left;
+            /*overflow: hidden;*/
+        }
+
+            /* Dropdown button */
+            .dropdownmenu .dropbtnmenu {
+                font-size: 16px;
+                border: none;
+                outline: none;
+                color: white;
+                padding: 14px 16px;
+                background-color: inherit;
+                font-family: inherit; /* Important for vertical align on mobile phones */
+                margin: 0; /* Important for vertical align on mobile phones */
+            }
+
+            /* Add a red background color to navbar links on hover */
+            .navbarmenu a:hover, .dropdownmenu:hover .dropbtnmenu {
+                background-color: red;
+            }
+
+        /* Dropdown content (hidden by default) */
+        .dropdownmenu-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            /* Links inside the dropdown */
+            .dropdownmenu-content a {
+                float: none;
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                text-align: left;
+            }
+
+                /* Add a grey background color to dropdown links on hover */
+                .dropdownmenu-content a:hover {
+                    background-color: #ddd;
+                }
+
+        /* Show the dropdown menu on hover */
+        .dropdownmenu:hover .dropdownmenu-content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbarmenu navbar-fixed-top">
+        <a href="/home/index">Home</a>
+        <div class="dropdownmenu">
+            <button class="dropbtnmenu">
+                Admin Controls
+                <l class="fa fa-caret-down"></l>
+            </button>
+            <div class="dropdownmenu-content">
+                <a href="#">Add User</a>
+                <a href="#">Add Project</a>
+                <a href="#">Add Components</a>
+            </div>
+        </div>
+        <div class="dropdownmenu">
+            <button class="dropbtnmenu">
+                Reports
+                <l class="fa fa-caret-down"></l>
+            </button>
+            <div class="dropdownmenu-content">
+                <a href="#">Infra Dashboard</a>
+               
+            </div>
+        </div>
+        <div class="dropdownmenu">
+            <button class="dropbtnmenu">
+                Release
+                <l class="fa fa-caret-down"></l>
+            </button>
+            <div class="dropdownmenu-content">
+                <a href="/home/index">Release Dashboard</a>
+                <a href="/Release/viewrelasetickets">Create New Release</a>
+                <a href="/release/getcomponents">Component Mapping</a>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Macmillan Learning</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

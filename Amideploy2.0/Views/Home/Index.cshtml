@@ -1,0 +1,79 @@
+﻿@{ 
+    ViewBag.Title = "AMI DEPLOY";
+}
+<h2>Dashboard</h2>
+<table id="Deployementdata" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>ComponentName</th>
+            <th>DEV</th>
+            <th>LT</th>
+            <th>QA</th>
+            <th>PROD</th>
+        </tr>
+    </thead>
+
+</table>
+
+<link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+@section Scripts{
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    
+    
+    <script>
+            $(document).ready(function () {
+            $('#Deployementdata').DataTable(
+                {
+                    "ajax": {
+                        "url": "/Home/Getdeployementdata",
+                        "type": "GET",
+                        "datatype": "json"
+                    },
+                    "columns": [
+                        { "data": "ComponentName" },
+                        {
+                            "data": "DEV",
+
+                            "render": function (DEV, type, row, meta) {
+                                arr = DEV.split(",")
+                                data = '<a href=/Home/Getbuildlog?env=LT&component=' + row["ComponentName"] + '&version=' + arr[0] + ' target="_blank">' + DEV.split(",").join("<br/>")+ '</a>';
+                                return data;
+                            }
+                        
+                        },
+                        {
+                            "data": "LT"
+
+                            ,
+                            "render": function (LT, type, row, meta) {
+                                arr = LT.split(",")
+                                data = '<a href=/Home/Getbuildlog?env=LT&component=' + row["ComponentName"] + '&version=' + arr[0] + ' target="_blank">' + LT.split(",").join("<br/>")+ '</a>';
+                                return data;
+                            }
+
+                        },
+                        {
+                            "data": "QA"
+                            ,
+                            "render": function (QA, type, row, meta) {
+                                arr = QA.split(",")
+                                data = '<a href=/Home/Getbuildlog?env=QA&component=' + row["ComponentName"] + '&version=' + arr[0] + '" target="_blank">' + QA.split(",").join("<br/>")+'</a>';
+                                return data;
+                            }
+                        },
+                        {
+                            "data": "PROD",
+                            "render": function (PROD, type, row, meta) {
+                                arr = PROD.split(",")
+                                data = '<a href=/Home/Getbuildlog?env=PROD&component=' + row["ComponentName"] + '&version=' + arr[0] + ' target="_blank">' + PROD.split(",").join("<br/>") + '</a>';
+                                return data;
+                            }
+                        }
+
+                    ]
+                });
+
+
+        })
+    </script>
+}

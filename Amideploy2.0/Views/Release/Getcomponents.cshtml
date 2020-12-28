@@ -1,0 +1,147 @@
+﻿@model Amideploy2._0.Models.Releaseno
+
+<br />
+<div class="form-horizontal">
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Releaseticket, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+
+            @Html.DropDownListFor(m => m.Releaseticket, Model.Releaseticket, "Please select", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Releaseticket, "", new { @class = "text-danger" })
+
+        </div>
+    </div>
+</div>
+<table id="Deployementdata" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>Application</th>
+            <th>ComponentName</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+</table>
+@using(Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="modal" id="modaledit" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">&times;</button>
+                        <h4>Add the component</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Releaseticket, htmlAttributes: new { @class = "control-label col-md-2", })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Releaseticketno, "Releaseticketno", new { htmlAttributes = new { @class = "form-control", @placeholder = "Releaseticketno", @readonly = "readonly" } })
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div>@Html.LabelFor(model => model.Releaseticketno, htmlAttributes: new { @class = "control-label col-md-2" })</div>
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Component, "Component", new { htmlAttributes = new { @class = "form-control", @placeholder = "Component", @readonly = "readonly" } })
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Buildversion, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-12">
+                                    @Html.DropDownList("ddlbuildversion", new List<SelectListItem>
+    {
+        new SelectListItem{ Text="1.0.216-v16-20190723", Value = "1.0.216-v16-20190723" },
+        new SelectListItem{ Text="1.0.216-v16-20190723", Value = "1.0.216-v16-20190723" },
+        new SelectListItem{ Text="1.0.216-v16-20190723", Value = "1.0.216-v16-20190723" },
+     })
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary">update</button>
+                        <script>
+                            $("form").submit(function (event) {
+                                event.preventDefault();
+                                alert('Component added Successfully');
+                            });
+
+                        </script>
+
+                        <button class="btn btn-primary" data-dismiss="modal">close</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+}
+<link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+@section Scripts{
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="//editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $("#Releaseticket").change(function () {
+                var rel = $(this).val();
+
+                $('#Deployementdata').DataTable(
+                    {
+                        destroy: true,
+                        "ajax": {
+                            "url": "/Release/Getcomponentformapping?releaseno=" + rel,
+                            "type": "GET",
+                            "datatype": "json"
+                        },
+                        "columns": [
+                            { "data": "Application" },
+                            { "data": "ComponentName" },
+                            {
+                                "render": function (ComponentName, type, full, meta) {
+                                    return '<input type="button" id="btnAdd" class="btn btn-primary" value="ADD" />'
+
+
+                                }
+                            }
+
+
+                        ]
+                    });
+
+                $('body').on('click', '[id*=btnAdd]', function () {
+                    var data = $(this).parents('tr').find('td');
+                    var id = rel;
+                    var name = data.eq(1).html();
+                    $('[id*=Releaseticketno]').val(id);
+                    $('[id*=Component]').val(name);
+                    $('#Buildversion').dropdown(
+                        {
+                            destroy: true,
+                            "ajax": {
+                                "url": "/Release/Getbuildversion?component=" + name,
+                                "type": "GET",
+                                "datatype": "list"
+                            }
+                        });
+
+                    $('#modaledit').modal("show");
+
+
+                });
+
+            });
+
+
+        })
+    </script>
+}

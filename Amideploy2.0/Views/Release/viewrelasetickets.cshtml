@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Amideploy2._0.Models.Releasetickets>
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>viewrelasetickets</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New Release", "Createnewrelease")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.releaseno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.createddate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.createdby)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isactive)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.releaseno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.createddate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.createdby)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isactive)
+            </td>
+            <td>
+               @Html.ActionLink("Details", "Details",new { Releaseno= item.releaseno })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>
