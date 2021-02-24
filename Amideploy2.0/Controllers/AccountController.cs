@@ -11,6 +11,8 @@ namespace Amideploy2._0.Controllers
 {
     public class AccountController : Controller
     {
+        private string _className = "AccountController";
+        public LoggingHelper loggingHelper = new LoggingHelper();
         // GET: Account
         public ActionResult Index()
         {
@@ -22,6 +24,7 @@ namespace Amideploy2._0.Controllers
         [HttpPost]
         public ActionResult Index(LoginModel LM)
         {
+            loggingHelper.Log(LoggingLevels.Info, "Class: " + _className + " :: Index - begin");
             try
             {
                 DBHandler LDB = new DBHandler();
@@ -31,7 +34,7 @@ namespace Amideploy2._0.Controllers
                 {
                     Session["UserName"] = dt.Rows[0]["UserName"].ToString();
                     Session["Role"] = dt.Rows[0]["Role"].ToString();
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Dashboard");
                 }
                 else
                 {
@@ -39,10 +42,12 @@ namespace Amideploy2._0.Controllers
                     return View();
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                loggingHelper.Log(LoggingLevels.Error, "Class: " + _className + " :: Index - Error - " + ex.Message);
             }
+            loggingHelper.Log(LoggingLevels.Info, "Class: " + _className + " :: Index - begin");
+            return View();
         }
 
     }

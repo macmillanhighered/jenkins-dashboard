@@ -8,6 +8,11 @@ namespace Amideploy2._0
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/login").Include(
+                        "~/Scripts/jquery-{version}.min.js",
+                        "~/Scripts/jquery.validate.min.js",
+                        "~/Scripts/bootstrap.bundle.min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -25,6 +30,19 @@ namespace Amideploy2._0
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/btdt").Include(
+                     "~/Content/bootstrap-select.css",
+                     "~/Content/bootstrap.min.css",
+                     "~/Content/dataTables.bootstrap.min.css",
+                     "~/Content/responsive.bootstrap.min.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/btdt").Include(
+                     "~/Scripts/jquery-{version}.min.js",
+                     "~/Scripts/bootstrap-select.min.js",
+                     "~/Scripts/bootstrap.bundle.min.js",
+                     "~/Scripts/dataTables.bootstrap4.min.js",
+                     "~/Scripts/jquery.dataTables.min.js"
+                     ));
         }
     }
 }
