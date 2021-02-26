@@ -27,23 +27,27 @@ namespace Amideploy2._0.Controllers
             loggingHelper.Log(LoggingLevels.Info, "Class: " + _className + " :: Index - begin");
             try
             {
-                DBHandler LDB = new DBHandler();
-                DataTable dt = LDB.Login(LM);
+                if (!string.IsNullOrEmpty(LM.UserName) && !string.IsNullOrEmpty(LM.Password))
+                {
+                    DBHandler LDB = new DBHandler();
+                    DataTable dt = LDB.Login(LM);
 
-                if (dt.Rows[0]["MSG"].ToString().ToUpper().Equals("SUCCESS"))
-                {
-                    Session["UserName"] = dt.Rows[0]["UserName"].ToString();
-                    Session["Role"] = dt.Rows[0]["Role"].ToString();
-                    return RedirectToAction("Index", "Dashboard");
-                }
-                else
-                {
-                    ViewBag.Message = dt.Rows[0]["MSG"].ToString();
-                    return View();
+                    if (dt.Rows[0]["MSG"].ToString().ToUpper().Equals("SUCCESS"))
+                    {
+                        Session["UserName"] = dt.Rows[0]["UserName"].ToString();
+                        Session["Role"] = dt.Rows[0]["Role"].ToString();
+                        return RedirectToAction("Index", "Dashboard");
+                    }
+                    else
+                    {
+                        ViewBag.Message = dt.Rows[0]["MSG"].ToString();
+                        return View();
+                    }
                 }
             }
             catch(Exception ex)
             {
+                ViewBag.Message = "Unable to Connect DB";
                 loggingHelper.Log(LoggingLevels.Error, "Class: " + _className + " :: Index - Error - " + ex.Message);
             }
             loggingHelper.Log(LoggingLevels.Info, "Class: " + _className + " :: Index - begin");

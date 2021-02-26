@@ -42,7 +42,7 @@ namespace Businesslayer
             catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
             return Result;
         }
@@ -140,6 +140,7 @@ namespace Businesslayer
                 {
                     Deployementdata deployementdata = new Deployementdata();
                     deployementdata.ComponentName = component;
+                    List<DateTime> dates = new List<DateTime>();
                     foreach (string env in lstEnv)
                     {
                         string endpointurl = Convert.ToString(jsondata["endpoints"][env][component]);
@@ -150,21 +151,22 @@ namespace Businesslayer
                                 var json = webClient.DownloadString(endpointurl);
                                 var details = JObject.Parse(json.ToString());
                                 string versionNumber = Convert.ToString(details["Summary"]["version"]);
+                                dates.Add(Convert.ToDateTime(details["Summary"]["installDateTime"]));
                                 string date = Convert.ToDateTime(details["Summary"]["installDateTime"]).ToString("dd MMMM yyyy");
                                 string ipAdress = Convert.ToString(details["Summary"]["ipAdress"]);
                                 string status = Convert.ToString(details["Summary"]["reason"]);
                                 switch (env)
                                 {
-                                    case "dev":
+                                    case nameof(EnvironmentTypes.dev):
                                         deployementdata.DEV = versionNumber + "," + date + "," + ipAdress + "," + status;
                                         break;
-                                    case "lt":
+                                    case nameof(EnvironmentTypes.lt):
                                         deployementdata.LT = versionNumber + "," + date + "," + ipAdress + "," + status;
                                         break;
-                                    case "qa":
+                                    case nameof(EnvironmentTypes.qa):
                                         deployementdata.QA = versionNumber + "," + date + "," + ipAdress + "," + status;
                                         break;
-                                    case "prod":
+                                    case nameof(EnvironmentTypes.prod):
                                         deployementdata.PROD = versionNumber + "," + date + "," + ipAdress + "," + status;
                                         break;
                                 }
@@ -174,6 +176,10 @@ namespace Businesslayer
                                 loggingHelper.Log(LoggingLevels.Error, "Class: " + _className + " :: GetDeployVersionData - foreach loop - Error - " + ex1.Message);
                             }
                         }
+                    }
+                    if(dates != null && dates.Count > 0)
+                    {
+                        deployementdata.ReleaseDate = dates.OrderByDescending(x => x != null).First();
                     }
                     lstdeployementdata.Add(deployementdata);
                 }

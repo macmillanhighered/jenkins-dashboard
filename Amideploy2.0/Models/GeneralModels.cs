@@ -22,7 +22,16 @@ namespace Amideploy2._0.Models
         public string LT { get; set; } = "";
         public string QA { get; set; } = "";
         public string PROD { get; set; } = "";
+        public DateTime ReleaseDate { get; set; }
 
+    }
+
+    public enum EnvironmentTypes
+    {
+        dev,
+        lt,
+        qa,
+        prod
     }
 
     public class Releasecomponent

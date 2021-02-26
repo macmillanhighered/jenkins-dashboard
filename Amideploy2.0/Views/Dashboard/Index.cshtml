@@ -1,13 +1,11 @@
 ﻿@{
     ViewBag.Title = "AMI DEPLOY";
 }
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 
 <h2 class="text-center">Dashboard</h2>
 <br />
 <br />
-
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
 <div class="container">
     <div class="row justify-content-start">
         <div class="col-4">
@@ -37,19 +35,9 @@
             </thead>
 
         </table>
-        <link href="~/Content/bootstrap.css" rel="stylesheet" />
-
-        <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-        <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
-
+        
         @section Scripts{
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-
-            <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-            <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
-
+            
 
             <script>
                 $(document).ready(function () {
@@ -63,6 +51,7 @@
                             $("#Deployementdata").show();
                             $('#Deployementdata').DataTable(
                                 {
+                                    "ordering": false,
                                     "paging": true,
                                     "destroy": true,
                                     "processing": false, // for show progress bar

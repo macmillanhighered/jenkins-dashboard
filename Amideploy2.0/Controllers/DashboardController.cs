@@ -46,12 +46,16 @@ namespace Amideploy2._0.Controllers
         {
             loggingHelper.Log(LoggingLevels.Info, "Class: " + _className + " :: Getdeployementdata - begin");
             BusinessFn bdata = new BusinessFn();
-            List<Deployementdata> ddatalist = null;
+            List<Deployementdata> lstDeploymentdata = null;
             try
             {
                 if (Session["UserName"] != null)
                 {
-                    ddatalist = bdata.GetDeployVersionData(selectedComponents);
+                    lstDeploymentdata = bdata.GetDeployVersionData(selectedComponents);
+                    if(lstDeploymentdata != null && lstDeploymentdata.Count > 0)
+                    {
+                        lstDeploymentdata = lstDeploymentdata.OrderByDescending(data => data.ReleaseDate).ToList();
+                    }
                 }
                 else
                 {
@@ -64,7 +68,8 @@ namespace Amideploy2._0.Controllers
                 throw ex;
             }
             loggingHelper.Log(LoggingLevels.Info, "Class: " + _className + " :: Getdeployementdata - end");
-            return Json(new { data = ddatalist }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = lstDeploymentdata }, JsonRequestBehavior.AllowGet);
+
         }
 
         public ActionResult Getbuildlog(string env, string component, string version)

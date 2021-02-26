@@ -4,11 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - AMI DEPLOY</title>
+    @Scripts.Render("~/bundles/btdt")
+    @Styles.Render("~/Content/btdt")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style>
         .footer {
-            position: fixed;
+            position: relative;
             left: 0;
             bottom: 0;
             width: 100%;
@@ -133,8 +135,7 @@
         <hr />
         <p>&copy; @DateTime.Now.Year - Macmillan Learning</p>
     </div>
-    @*@Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")*@    
+   
     @RenderSection("scripts", required: false)
 </body>
 </html>
