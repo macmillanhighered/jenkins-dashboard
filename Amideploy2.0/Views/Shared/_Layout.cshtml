@@ -89,7 +89,7 @@
 </head>
 <body>
     <div class="navbarmenu navbar-fixed-top">
-        <a href="/Dashboard/index">Dashboard</a>
+        <a href=@Url.Action("Index", "Dashboard")>Dashboard</a>
         <div class="dropdownmenu">
             <button class="dropbtnmenu">
                 Admin Controls
@@ -122,7 +122,7 @@
                 <a href="/release/getcomponents">Component Mapping</a>
             </div>
         </div>
-        <a href="/Account/Index" type="button" class="pull-right">
+        <a href="@Url.Action("Index", "Account")" type="button" class="pull-right">
             Logout
         </a>
     </div>

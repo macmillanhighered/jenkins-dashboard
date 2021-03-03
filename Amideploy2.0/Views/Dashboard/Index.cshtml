@@ -39,15 +39,31 @@
         @section Scripts{
             
 
-            <script>
+                <script>
                 $(document).ready(function () {
                     $("#Deployementdata").hide();
+                    $(".dropdown").css({
+                        "border": "",
+                        "background": ""
+                    });
                     $('select').selectpicker();
+
+                    $("#components").change(function () {
+                        $(".dropdown").css({
+                            "border": "",
+                            "background": ""
+                        });
+                    });
+
                     $('#submit').click(function (e) {
+                        debugger;
                         e.preventDefault();
+                        $(".dropdown").css({
+                            "border": "",
+                            "background": ""
+                        });
                         var selectedComponents = $('#components').val();
-                        if (selectedComponents != null)
-                        {
+                        if (selectedComponents.length > 0) {
                             $("#Deployementdata").show();
                             $('#Deployementdata').DataTable(
                                 {
@@ -59,14 +75,14 @@
                                     "filter": true, // this is for disable filter (search box)
                                     "orderMulti": false, // for disable multiple column at once
                                     "ajax": {
-                                        "url": "/Dashboard/Getdeployementdata",
+                                        "url": '@Url.Action("Getdeployementdata", "Dashboard")',
                                         "content": "application/json",
                                         "type": "POST",
                                         "datatype": "json",
                                         "data": { selectedComponents: selectedComponents },
                                         "error": function (error) {
                                             console.log(error)
-                                            window.location.href = "/Account/Index";
+                                            window.location.href = '@Url.Action("Index", "Account")';
                                         }
                                     },
                                     "language": {
@@ -122,10 +138,17 @@
                                     }]
                                 });
                         }
+                        else {
+                            $(".dropdown").css({
+                                "border": "1px solid red",
+                                "background": "#FFCECE"
+                            });
+                            return false;
+                        }
                     })
 
                 })
-            </script>
+                </script>
         }
     </div>
 </div>
