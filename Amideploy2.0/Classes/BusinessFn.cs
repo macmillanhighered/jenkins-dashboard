@@ -41,7 +41,6 @@ namespace Businesslayer
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             return Result;
@@ -60,8 +59,7 @@ namespace Businesslayer
             }
             catch (Exception ex)
             {
-
-                throw;
+                throw ex;
             }
             return Result;
         }
@@ -79,8 +77,7 @@ namespace Businesslayer
             }
             catch (Exception ex)
             {
-
-                throw;
+                throw ex;
             }
             return Result;
         }
@@ -99,8 +96,7 @@ namespace Businesslayer
             }
             catch (Exception ex)
             {
-
-                throw;
+                throw ex;
             }
             return Result;
         }
@@ -117,8 +113,7 @@ namespace Businesslayer
             }
             catch (Exception ex)
             {
-
-                throw;
+                throw ex;
             }
             return Result;
         }       
@@ -138,6 +133,7 @@ namespace Businesslayer
                 lstdeployementdata = new List<Deployementdata>();
                 foreach (string component in lstComponents)
                 {
+                    loggingHelper.Log(LoggingLevels.Info, "Class: " + _className + " :: GetDeployVersionData - foreach - component -" + component);
                     Deployementdata deployementdata = new Deployementdata();
                     deployementdata.ComponentName = component;
                     List<DateTime> dates = new List<DateTime>();
@@ -150,6 +146,7 @@ namespace Businesslayer
                             {
                                 var json = webClient.DownloadString(endpointurl);
                                 var details = JObject.Parse(json.ToString());
+                                loggingHelper.Log(LoggingLevels.Info, "Class: " + _className + " :: GetDeployVersionData - foreach - component -" + details);
                                 string versionNumber = Convert.ToString(details["Summary"]["version"]);
                                 dates.Add(Convert.ToDateTime(details["Summary"]["installDateTime"]));
                                 string date = Convert.ToDateTime(details["Summary"]["installDateTime"]).ToString("dd MMMM yyyy");
@@ -171,13 +168,13 @@ namespace Businesslayer
                                         break;
                                 }
                             }
-                            catch(Exception ex1)
+                            catch (Exception ex1)
                             {
                                 loggingHelper.Log(LoggingLevels.Error, "Class: " + _className + " :: GetDeployVersionData - foreach loop - Error - " + ex1.Message);
                             }
                         }
                     }
-                    if(dates != null && dates.Count > 0)
+                    if (dates != null && dates.Count > 0)
                     {
                         deployementdata.ReleaseDate = dates.OrderByDescending(x => x != null).First();
                     }
