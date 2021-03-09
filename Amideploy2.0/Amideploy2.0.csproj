@@ -45,6 +45,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Packages\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data, Version=8.0.18.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -124,6 +128,7 @@
     <Compile Include="Classes\BusinessFn.cs" />
     <Compile Include="Classes\DBHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReleaseController.cs" />
     <Compile Include="Global.asax.cs">
@@ -132,6 +137,7 @@
     <Compile Include="Models\DBHandler.cs" />
     <Compile Include="Models\dblayer.cs" />
     <Compile Include="Models\GeneralModels.cs" />
+    <Compile Include="Models\LoggingHelper.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -140,13 +146,23 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bundlecss\bootstrap-select.css" />
+    <Content Include="Content\bundlecss\bootstrap-select.min.css" />
+    <Content Include="Content\bundlecss\bootstrap.min.css" />
+    <Content Include="Content\bundlecss\dataTables.bootstrap.min.css" />
+    <Content Include="Content\bundlecss\responsive.bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Log4Net.config" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\bundlescripts\bootstrap-select.min.js" />
+    <Content Include="Scripts\bundlescripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bundlescripts\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\bundlescripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -181,6 +197,8 @@
     <Content Include="Views\Release\Updateversion.cshtml" />
     <Content Include="Views\Release\Details.cshtml" />
     <Content Include="Views\Home\Showinstances.cshtml" />
+    <Content Include="StatusEndpoint.json" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

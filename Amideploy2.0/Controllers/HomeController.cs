@@ -31,14 +31,7 @@ namespace Amideploy2._0.Controllers
             }
         }
 
-        public ActionResult Getbuildlog(string env,string component,string version)
-        {
-
-            string env1 = Request.QueryString["env"];
-            string component1 = Request.QueryString["component"];
-            string version1 = Request.QueryString["version"];
-            return Redirect("http://10.10.12.185:8080/job/test-build/8/");
-        }
+        
 
         
     }

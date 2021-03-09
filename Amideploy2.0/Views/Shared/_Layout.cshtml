@@ -4,9 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - AMI DEPLOY</title>
+    @Scripts.Render("~/bundles/btdt")
+    @Styles.Render("~/Content/btdt")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style>
+        .footer {
+            position: relative;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
         /* Navbar container */
         .navbarmenu {
             /*overflow: hidden;*/
@@ -80,7 +89,7 @@
 </head>
 <body>
     <div class="navbarmenu navbar-fixed-top">
-        <a href="/home/index">Home</a>
+        <a href=@Url.Action("Index", "Dashboard")>Dashboard</a>
         <div class="dropdownmenu">
             <button class="dropbtnmenu">
                 Admin Controls
@@ -99,7 +108,7 @@
             </button>
             <div class="dropdownmenu-content">
                 <a href="#">Infra Dashboard</a>
-               
+
             </div>
         </div>
         <div class="dropdownmenu">
@@ -113,17 +122,20 @@
                 <a href="/release/getcomponents">Component Mapping</a>
             </div>
         </div>
+        <a href="@Url.Action("Index", "Account")" type="button" class="pull-right">
+            Logout
+        </a>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Macmillan Learning</p>
-        </footer>
-    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+
+    </div>
+    <div class="footer">
+        <hr />
+        <p>&copy; @DateTime.Now.Year - Macmillan Learning</p>
+    </div>
+   
     @RenderSection("scripts", required: false)
 </body>
 </html>

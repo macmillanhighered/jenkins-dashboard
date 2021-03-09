@@ -18,11 +18,20 @@ namespace Amideploy2._0.Models
     public class Deployementdata
     {
         public string ComponentName { get; set; }
-        public string DEV { get; set; }
-        public string LT { get; set; }
-        public string QA { get; set; }
-        public string PROD { get; set; }
+        public string DEV { get; set; } = string.Empty;
+        public string LT { get; set; } = string.Empty;
+        public string QA { get; set; } = string.Empty;
+        public string PROD { get; set; } = string.Empty;
+        public DateTime ReleaseDate { get; set; }
 
+    }
+
+    public enum EnvironmentTypes
+    {
+        dev,
+        lt,
+        qa,
+        prod
     }
 
     public class Releasecomponent
